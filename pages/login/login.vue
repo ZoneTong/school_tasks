@@ -162,8 +162,8 @@
 				}
 			},
 			toMain(userName, avatarUrl) {
-				console.log('tomain avatarUrl', avatarUrl);
-				this.login(userName, avatarUrl);
+				console.log('tomain ', userName, avatarUrl);
+				this.login({userName, avatarUrl});
 				/**
 				 * 强制登录时使用reLaunch方式跳转过来
 				 * 返回首页也使用reLaunch方式
