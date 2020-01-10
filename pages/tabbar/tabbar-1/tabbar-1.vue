@@ -5,12 +5,13 @@
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" >
 			<swiper-item v-for="(task, index) in adtasks" :key="task.id">
 				<view class="swiper-item">
-					<image :src="task.icon" mode="aspectFit" class="swiper-icon"></image>
+					<image :src="task.icon" mode="widthFix" class="swiper-icon"></image>
 				</view>
 			</swiper-item>
 		</swiper>
 		
-		<scroll-view scroll-y="true" class="uni-list-cell" hover-class="uni-list-cell-hover" >
+		<scroll-view scroll-y="true"  class="uni-list-cell" hover-class="uni-list-cell-hover" >
+			<!-- enable-flex="true" -->
 			<view class="uni-media-list" v-for="(task,index) in tasks"
 		 :key="task.id">
 				<view class="uni-media-list-logo">
@@ -39,7 +40,7 @@
 					icon: '/static/shuijiao.jpg',
 				},{
 					id: 2,
-					icon: '/static/nav.png',
+					icon: '/static/img/nav.png',
 				}],
 				tasks: [{
 					id: 1,
@@ -53,7 +54,7 @@
 					finished: '202001062233',
 				},{
 					id: 2,
-					icon: '/static/uni.png',
+					icon: '/static/img/uni.png',
 					event_icon: 'weibo',
 					title: '打热水（限女生）',
 					detail: '送到A110寝室',
@@ -63,7 +64,7 @@
 					finished: '202001062233',
 				},{
 					id: 3,
-					icon: '/static/nav.png',
+					icon: '/static/img/nav.png',
 					event_icon: 'location',
 					title: '提行李',
 					detail: '送到A110寝室',

@@ -3,7 +3,7 @@
 		<view class="logo" @click="goLogin" :hover-class="!login ? 'logo-hover' : ''">
 			<image class="logo-img" :src="login ? uerInfo.avatarUrl :avatarUrl"></image>
 			<view class="logo-title">
-				<text class="uer-name">Hi，{{login ? uerInfo.name : '您未登录'}}</text>
+				<text class="uer-name">Hi，{{login ? uerInfo.userName : '您未登录'}}</text>
 				<text class="go-login navigat-arrow" v-if="!login">&#xe65e;</text>
 			</view>
 		</view>
@@ -38,23 +38,51 @@
 				<text class="navigat-arrow">&#xe65e;</text>
 			</view>
 		</view>
+		<view class="center-list" v-if="login">
+			<view class="center-list-item">
+				<!-- <text class="list-icon">&#xe614;</text> -->
+				<text class="list-text red" @tap="bindLogout">退出登录</text>
+				<!-- <text class="navigat-arrow">&#xe65e;</text> -->
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
+    import {  
+        mapState,  
+        mapMutations  
+    } from 'vuex';
+		
 	export default {
 		data() {
 			return {
-				login: false,
-				avatarUrl: "/static/uni-center/logo.png",
-				uerInfo: {}
+				// login: this.$store.state.hasLogin,
+				avatarUrl: "/static/img/visitor.png",
+				// uerInfo: mapState(['avatarUrl', 'userName'])				
 			}
 		},
+		computed:mapState({
+			login: 'hasLogin',			
+			uerInfo: state => {
+				console.log('tabbar5-avatarUrl', state);
+				return {
+				avatarUrl: state.avatarUrl,
+				userName: state.userName,	
+			}}
+		}),
 		methods: {
+			...mapMutations(['logout']),
 			goLogin() {
 				if (!this.login) {
 					console.log("点击前往登录")
+					uni.navigateTo({
+						url: '/pages/login/login',
+					})
 				}
+			},
+			bindLogout() {
+				this.logout();
 			}
 		}
 	}
@@ -65,7 +93,7 @@
 		font-family: texticons;
 		font-weight: normal;
 		font-style: normal;
-		src: url('https://at.alicdn.com/t/font_984210_5cs13ndgqsn.ttf') format('truetype');
+		src: url('~@/static/font_984210_5cs13ndgqsn.ttf') format('truetype');
 	}
 
 	page,
@@ -179,5 +207,11 @@
 		color: #555;
 		text-align: right;
 		font-family: texticons;
+	}
+	
+	
+	.list-text.red{
+		color: red;
+		text-align: center;
 	}
 </style>

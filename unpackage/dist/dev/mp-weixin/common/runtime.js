@@ -104,11 +104,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/uni-icons/uni-icons":1,"components/uni-search-bar/uni-search-bar":1};
+/******/ 		var cssChunks = {"components/uni-icons/uni-icons":1,"components/uni-search-bar/uni-search-bar":1,"components/m-input":1,"components/m-icon/m-icon":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/uni-icons/uni-icons":"components/uni-icons/uni-icons","components/uni-search-bar/uni-search-bar":"components/uni-search-bar/uni-search-bar"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/uni-icons/uni-icons":"components/uni-icons/uni-icons","components/uni-search-bar/uni-search-bar":"components/uni-search-bar/uni-search-bar","components/m-input":"components/m-input","components/m-icon/m-icon":"components/m-icon/m-icon"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

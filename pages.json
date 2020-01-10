@@ -34,21 +34,40 @@
 		{
 			"path": "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa",
 			"style": {}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}, {
+			"path": "pages/reg/reg",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		}, {
+			"path": "pages/pwd/pwd",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
 		}
 	],
 	"condition": { //模式配置，仅开发期间生效
-	        "current": 0, //当前激活的模式（list 的索引项）
+	        "current": 2, //当前激活的模式（list 的索引项）
 	        "list": [{
 						"name":"index",
 						"path":"pages/tabbar/tabbar-1/tabbar-1"
 					},{
-	            "name": "test", //模式名称
+	            "name": "plus", //模式名称
 	            "path": "pages/tabbar/tabbar-3/tabbar-3" //启动页面，必选
-	        }]
+	        },{
+						"name":"login",
+						"path":"pages/login/login"
+					}]
 	    },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "校园跑腿",
+		"navigationBarTitleText": "我的校园",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},

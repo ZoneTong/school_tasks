@@ -7,12 +7,15 @@
     "pages/tabbar/tabbar-5/tabbar-5",
     "pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release",
     "pages/tabbar-3-detial/tabbar-3-video/tabbar-3-video",
-    "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa"
+    "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa",
+    "pages/login/login",
+    "pages/reg/reg",
+    "pages/pwd/pwd"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "校园跑腿",
+    "navigationBarTitleText": "我的校园",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
@@ -54,6 +57,10 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap58.json"
+  "permission": {
+    "scope.userLocation": {
+      "desc": "方便附近的人沟通以及面对面使用"
+    }
+  },
+  "usingComponents": {}
 }
