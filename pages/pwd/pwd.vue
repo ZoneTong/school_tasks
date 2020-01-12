@@ -15,7 +15,7 @@
 
 <script>
 	import service from '../../service.js';
-	import mInput from '../../components/m-input.vue';
+	import mInput from '../../components/m-input/m-input.vue';
 
 	export default {
 		components: {
@@ -49,6 +49,6 @@
 </script>
 
 <style>
-	@import "../../components/m-input.css";
+	@import "../../components/m-input/m-input.css";
 
 </style>

@@ -4,7 +4,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/tabbar-1",
 			"style": {
-				"navigationBarTitleText": "校园跑腿"
+				"navigationBarTitleText": "圈圈缘"
 			}
 		},
 		{
@@ -23,6 +23,31 @@
 			"path": "pages/tabbar/tabbar-5/tabbar-5",
 			"style": {}
 		},
+		
+		// tabbar1
+		{
+		    "path" : "pages/details/details",
+		    "style" : {
+				"navigationBarTitleText" : "详情",
+				"app-plus": {
+					"navigationBarTextStyle": "white",
+					"bounce": "none"
+				}
+			}
+		},
+		{
+		    "path" : "pages/details/videoDetails",
+		    "style" : {
+				"navigationBarTitleText" : "",
+				"app-plus": {
+					"titleNView": false,
+					"navigationBarTextStyle": "white",
+					"bounce": "none"
+				}
+			}
+		},
+		
+		// tabbar3
 		{
 			"path": "pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release",
 			"style": {}
@@ -35,6 +60,8 @@
 			"path": "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa",
 			"style": {}
 		},
+		
+		// tabbar5
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -67,7 +94,7 @@
 	    },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "我的校园",
+		"navigationBarTitleText": "圈圈缘",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
