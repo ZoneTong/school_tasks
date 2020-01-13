@@ -4,7 +4,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/tabbar-1",
 			"style": {
-				"navigationBarTitleText": "圈圈缘"
+				"navigationBarTitleText": "缘圈"
 			}
 		},
 		{
@@ -68,19 +68,19 @@
 				"navigationBarTitleText": "登录"
 			}
 		}, {
-			"path": "pages/reg/reg",
+			"path": "pages/login/reg",
 			"style": {
 				"navigationBarTitleText": "注册"
 			}
 		}, {
-			"path": "pages/pwd/pwd",
+			"path": "pages/login/pwd",
 			"style": {
 				"navigationBarTitleText": "找回密码"
 			}
 		}
 	],
 	"condition": { //模式配置，仅开发期间生效
-	        "current": 2, //当前激活的模式（list 的索引项）
+	        "current": 1, //当前激活的模式（list 的索引项）
 	        "list": [{
 						"name":"index",
 						"path":"pages/tabbar/tabbar-1/tabbar-1"
@@ -90,11 +90,15 @@
 	        },{
 						"name":"login",
 						"path":"pages/login/login"
+					},{
+						"name":"detail",
+						"path": "pages/details/details",
+						"query": "data={\"id\":4612,\"title\":\"别再玩手机了，赶紧学前端，晚一年能少掉5根头发\",\"author\":\"爱考过\",\"time\":\"30分钟前\",\"readCount\": 50}"
 					}]
 	    },
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "圈圈缘",
+		"navigationBarTitleText": "缘圈",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},

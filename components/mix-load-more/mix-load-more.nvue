@@ -3,7 +3,7 @@
 		<image 
 			ref="loadingIcon" 
 			class="mix-load-more__icon" 
-			src="/static/loading.gif"
+			src="/static/img/loading.gif"
 			v-if="status == 1"
 		>
 		</image>
