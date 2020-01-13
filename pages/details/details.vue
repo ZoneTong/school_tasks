@@ -35,7 +35,7 @@
 				
 				<view class="container" v-show="loading === false">
 					<!-- 推荐 -->
-					<!-- <view class="s-header">
+					<view class="s-header">
 						<text class="tit">相关推荐</text>
 					</view>
 					<view class="rec-section" v-for="item in newsList" :key="item.id">
@@ -51,16 +51,15 @@
 								<image class="img" :src="item.images[0]" mode="aspectFill"></image>
 							</view>
 						</view>
-					</view> -->
+					</view>
 					
 					<!-- 评论 -->
 					<view class="s-header">
 						<text class="tit">网友评论</text>
 					</view>
-					<!-- <view class="evalution">
-						<view  v-for="(item, index) in evaList" :key="index"
-							class="eva-item"
-						>
+					<view class="evalution">
+						<!-- <view  v-for="(item, index) in evaList" :key="index"
+							class="eva-item" >
 							<image :src="item.src" mode="aspectFill"></image>
 							<view class="eva-right">
 								<text>{{item.nickname}}</text>
@@ -71,10 +70,12 @@
 								</view>
 								<text class="content">{{item.content}}</text>
 							</view>
+						</view> -->
+						
+						<view v-for="(item,index) in reviewMsgs" :key="index" class="rec-section">
+							<review :reviewMsg="item" class="rec-item"> </review>
 						</view>
-					</view> -->
-					
-					<!-- <review></review> -->
+					</view>					
 				</view>
 				<!-- 加载图标 -->
 				<mixLoading class="mix-loading" v-if="loading"></mixLoading>
@@ -87,7 +88,7 @@
 				<input 
 					class="input"
 					type="text" 
-					placeholder="点评一下把.." 
+					placeholder="点评一下吧..." 
 					placeholder-style="color:#adb1b9;"
 				/>
 			</view>
@@ -113,6 +114,41 @@
 				detailData: {},
 				newsList: [],
 				evaList: [],
+				reviewMsgs: [{
+					headImgSrc: '/static/shuijiao.jpg',
+					userName: '醉趋醍',
+					userLevel: 7,
+					floorId: 11,
+					sendTime: '2019-01-02',
+					targetUserName: 'zht',
+					sendMsg: '牛逼啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacc',
+					likeNum: 543,
+					hateNum: 4,
+					reviewNum: 11,
+					reviewLess: [{
+						headImgSrc: '/static/shuijiao.jpg',
+						userName: '醉趋醍',
+						userLevel: 7,
+						floorId: 11,
+						sendTime: '2019-01-02',
+						targetUserName: 'zht',
+						sendMsg: '牛逼啊bububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcc',
+						likeNum: 543,
+						hateNum: 4,
+						reviewNum: 20,
+					},{
+						headImgSrc: '/static/shuijiao.jpg',
+						userName: '醉趋醍',
+						userLevel: 7,
+						floorId: 11,
+						sendTime: '2019-01-02',
+						targetUserName: 'zht',
+						sendMsg: '不牛逼啊bububububbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcc',
+						likeNum: 543,
+						hateNum: 4,
+						reviewNum: 20,
+					}]
+				}],
 			}
 		},
 		onLoad(options){
@@ -267,8 +303,11 @@
 				right: 0;
 				bottom: 0;
 				height: 0;
-				border-bottom: 1px solid #eee;
+				// border-bottom: 1px solid #eee;
 				transform: scaleY(50%);
+			}
+			.tview {
+				width: calc(100% - 30upx) ;
 			}
 		}
 		.left{

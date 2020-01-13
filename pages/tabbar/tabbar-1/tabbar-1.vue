@@ -72,14 +72,15 @@
 							<view class="iconRow">
 								<view class="iconBadge">
 									<faicon type="thumbs-o-up" color="gray" size="20" ></faicon>
-									<text > 9999+</text>
+									<text >9999+</text>
 								</view>
 								<view class="iconBadge">
 									<faicon type="comment-o" color="gray" size="20" ></faicon>
-									<text > 9999+</text>
+									<text >9999+</text>
 								</view>
 								<view class="iconBadge">
 									<faicon type="share" color="gray" size="20" ></faicon>
+									<text >分享</text>
 								</view>
 							</view>
 						</view>
@@ -420,8 +421,7 @@
 	.news-item{
 		width: 750upx;
 		padding: 24upx 30upx;
-		border-bottom-width: 1px;
-		border-color: #eee;
+		border-bottom: 1px solid #eee;
 		background-color: #fff;
 	}
 	.title{
@@ -561,10 +561,10 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-around;
-		align-items: baseline;
-		text{
+		align-items: center;
+	}
+	.iconRow .iconBadge text {
 			padding-left: 10rpx;
 		}
-	}
 	
 </style>
