@@ -54,7 +54,7 @@ const newsList = [{
 		title: '将府公园成居民身边“大绿肺”',
 		author: '新京报',
 		images: [
-			'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1692298215,2450965851&fm=15&gp=0.jpg',
+			'https://as.chdev.tw/web/article/7/9/4/795b4954-9e24-48a7-99a7-f4d837c61f46/A0944375.jpg',
 		],
 		time: '2小时前',
 		type: 3,

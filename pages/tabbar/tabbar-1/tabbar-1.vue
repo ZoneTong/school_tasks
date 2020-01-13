@@ -9,11 +9,13 @@
 		<!-- #ifndef MP -->
 		<mix-advert 
 			ref="mixAdvert" 
-			:timedown="8" 
-			imageUrl="/static/advert.jpg"
+			:timedown="1" 
+			imageUrl="/static/img/advert.jpg"
 			:url="advertNavUrl"
 		></mix-advert>
 		<!-- #endif -->
+		
+		<uni-search-bar @confirm="search" @input="input" />
 		
 		<!-- 顶部选项卡 -->
 		<scroll-view id="nav-bar" class="nav-bar" scroll-x scroll-with-animation :scroll-left="scrollLeft">
@@ -66,6 +68,21 @@
 								<text class="author">{{item.author}}</text>
 								<text class="time">{{item.time}}</text>
 							</view>
+							
+							<view class="iconRow">
+								<view class="iconBadge">
+									<faicon type="thumbs-o-up" color="gray" size="20" ></faicon>
+									<text >9999+</text>
+								</view>
+								<view class="iconBadge">
+									<faicon type="comment-o" color="gray" size="20" ></faicon>
+									<text >9999+</text>
+								</view>
+								<view class="iconBadge">
+									<faicon type="share" color="gray" size="20" ></faicon>
+									<text >分享</text>
+								</view>
+							</view>
 						</view>
 						
 						<!-- 上滑加载更多组件 -->
@@ -79,16 +96,24 @@
 </template>
 
 <script>
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import uniBadge from "@/components/uni-badge/uni-badge.vue"
+	import uniIcons from "@/components/uni-icons/uni-icons.vue"
 	import mixAdvert from '@/components/mix-advert/vue/mix-advert';
+	// import dnIcon from '@/components/dn-icon/dn-icon.vue';
 	import json from '@/json'
 	import mixPulldownRefresh from '@/components/mix-pulldown-refresh/mix-pulldown-refresh';
 	import mixLoadMore from '@/components/mix-load-more/mix-load-more';
 	let windowWidth = 0, scrollTimer = false, tabBar;
 	export default {
 		components: {
+			uniSearchBar,
+			uniBadge,
+			uniIcons,
+			// dnIcon,
 			mixPulldownRefresh,
 			mixLoadMore,
-			mixAdvert
+			mixAdvert,
 		},
 		data() {
 			return {
@@ -123,7 +148,7 @@
 						<mix-advert 
 							ref="mixAdvert" 
 							:timedown="8" 
-							imageUrl="/static/advert.jpg"
+							imageUrl="/static/img/advert.jpg"
 							:url="advertNavUrl"
 						></mix-advert>
 					<!-- #endif -->
@@ -202,7 +227,8 @@
 					id: item.id,
 					title: item.title,
 					author: item.author,
-					time: item.time
+					time: item.time,
+					readCount: 30,
 				}
 				let url = item.videoSrc ? 'videoDetails' : 'details'; 
 
@@ -293,6 +319,14 @@
 						res(data);
 					}).exec();
 				});
+			},
+			
+			// 
+			search(e) {
+				return e;
+			},
+			input(e) {
+				return e+'2';
 			},
 		}
 	}
@@ -387,8 +421,7 @@
 	.news-item{
 		width: 750upx;
 		padding: 24upx 30upx;
-		border-bottom-width: 1px;
-		border-color: #eee;
+		border-bottom: 1px solid #eee;
 		background-color: #fff;
 	}
 	.title{
@@ -488,4 +521,50 @@
 		width: 60upx;
 		height:60upx; 
 	}
+	
+	view,
+	scroll-view,
+	swiper,
+	swiper-item,
+	cover-view,
+	cover-image,
+	icon,
+	text,
+	rich-text,
+	progress,
+	button,
+	checkbox,
+	form,
+	input,
+	label,
+	radio,
+	slider,
+	switch,
+	textarea,
+	navigator,
+	audio,
+	camera,
+	image,
+	video {
+		box-sizing: border-box;
+	}
+	
+	
+	.iconRow {
+		/* width: 50%; */
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		margin-top: 10rpx;
+	}
+	.iconRow .iconBadge{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+	}
+	.iconRow .iconBadge text {
+			padding-left: 10rpx;
+		}
+	
 </style>

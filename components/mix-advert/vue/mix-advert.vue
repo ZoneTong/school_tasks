@@ -28,7 +28,7 @@
 			},
 			imageUrl: {
 				type: String,
-				default: '/static/advert.jpg'
+				default: '/static/img/advert.jpg'
 			},
 			url:{
 				type: String,
