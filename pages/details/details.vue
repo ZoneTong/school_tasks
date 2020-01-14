@@ -73,7 +73,9 @@
 						</view> -->
 						
 						<view v-for="(item,index) in reviewMsgs" :key="index" class="rec-section">
-							<review :reviewMsg="item" class="rec-item"> </review>
+							<view class="rec-item">
+								<review :reviewMsg="item" class="tview"> </review>
+							</view>
 						</view>
 					</view>					
 				</view>
@@ -119,7 +121,7 @@
 					userName: '醉趋醍',
 					userLevel: 7,
 					floorId: 11,
-					sendTime: '2019-01-02',
+					sendTime: '2019-01-02 16:30',
 					targetUserName: 'zht',
 					sendMsg: '牛逼啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacc',
 					likeNum: 543,
@@ -307,7 +309,7 @@
 				transform: scaleY(50%);
 			}
 			.tview {
-				width: calc(100% - 30upx) ;
+				width: 100% ;
 			}
 		}
 		.left{

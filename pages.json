@@ -78,7 +78,11 @@
 				"navigationBarTitleText": "找回密码"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/details/replyDetails",
+            "style" : {}
+        }
+    ],
 	"condition": { //模式配置，仅开发期间生效
 	        "current": 1, //当前激活的模式（list 的索引项）
 	        "list": [{
@@ -92,7 +96,7 @@
 						"path":"pages/login/login"
 					},{
 						"name":"detail",
-						"path": "pages/details/details",
+						"path": "pages/details/replyDetails",
 						"query": "data={\"id\":4612,\"title\":\"别再玩手机了，赶紧学前端，晚一年能少掉5根头发\",\"author\":\"爱考过\",\"time\":\"30分钟前\",\"readCount\": 50}"
 					}]
 	    },
