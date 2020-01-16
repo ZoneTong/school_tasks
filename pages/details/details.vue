@@ -76,9 +76,11 @@
 							<view class="rec-item">
 								<reviewitem :reviewMsg="item" class="tview" @requestMore="moreChildrenReview"> </reviewitem>
 							</view>
-						</view>
+						</view>						
+						<uni-load-more status="loading"></uni-load-more>
 					</view>					
 				</view>
+				
 				<!-- 加载图标 -->
 				<mixLoading class="mix-loading" v-if="loading"></mixLoading>
 			</view>
@@ -102,8 +104,10 @@
 	import mixLoading from '@/components/mix-loading/mix-loading';
 	import faicon from '@/components/fa-icon/fa-icon.vue'
 	import reviewitem from '@/components/dl-review/item.vue'
+	import UniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	export default {
 		components: {
+			UniLoadMore,
 			mixLoading,
 			faicon,
 			reviewitem,

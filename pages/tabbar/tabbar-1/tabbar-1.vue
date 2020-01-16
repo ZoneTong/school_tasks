@@ -29,7 +29,7 @@
 		</scroll-view>
 		
 		<!-- 下拉刷新组件 -->
-		<mix-pulldown-refresh ref="mixPulldownRefresh" class="panel-content" :top="90" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
+		<mix-pulldown-refresh ref="mixPulldownRefresh" class="panel-content" :top="185" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
 			<!-- 内容部分 -->
 			<swiper 
 				id="swiper"
@@ -86,8 +86,8 @@
 							</view> -->
 						</view>
 						
-						<!-- 上滑加载更多组件 -->
-						<mix-load-more :status="tabItem.loadMoreStatus"></mix-load-more>
+						<!-- 上滑加载更多组件 -->				
+						<uni-load-more :status="loadingStatus( tabItem.loadMoreStatus )"></uni-load-more>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
@@ -104,7 +104,7 @@
 	// import dnIcon from '@/components/dn-icon/dn-icon.vue';
 	import json from '@/json'
 	import mixPulldownRefresh from '@/components/mix-pulldown-refresh/mix-pulldown-refresh';
-	import mixLoadMore from '@/components/mix-load-more/mix-load-more';
+	import UniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
 	let windowWidth = 0, scrollTimer = false, tabBar;
 	export default {
 		components: {
@@ -113,8 +113,8 @@
 			uniIcons,
 			// dnIcon,
 			mixPulldownRefresh,
-			mixLoadMore,
 			mixAdvert,
+			UniLoadMore,
 		},
 		data() {
 			return {
@@ -132,7 +132,7 @@
 					time: '2019-04-26 21:21'
 				}
 				return `/pages/details/details?data=${JSON.stringify(data)}`;
-			} 
+			},
 		},
 		async onLoad() {
 			// 获取屏幕宽度
@@ -218,7 +218,7 @@
 					}
 					//上滑加载 处理状态
 					if(type === 'add'){
-						tabItem.loadMoreStatus = tabItem.newsList.length > 40 ? 2: 0;
+						tabItem.loadMoreStatus = tabItem.newsList.length > 10 ? 2: 0;
 					}
 				}, 600)
 			},
@@ -328,6 +328,18 @@
 			},
 			input(e) {
 				return e+'2';
+			},
+			
+			loadingStatus(status) {
+				// console.log('loadingStatus', status);
+				switch(status){
+					case 0:
+						return 'more';
+					case 1:
+					return 'loading';
+					case 2:
+					return 'noMore';
+				}
 			},
 		}
 	}
