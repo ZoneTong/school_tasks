@@ -116,6 +116,7 @@
 
 <style lang="scss" scoped>
 	$uni-searchbar-height: 36px;
+	$uni-searchbar-font-size-base: 16px;
 
 	.uni-searchbar {
 		/* #ifndef APP-NVUE */
@@ -158,7 +159,7 @@
 
 	.uni-searchbar__box-search-input {
 		flex: 1;
-		font-size: $uni-font-size-base;
+		font-size: $uni-searchbar-font-size-base;
 		color: $uni-text-color;
 	}
 
@@ -169,7 +170,7 @@
 	}
 
 	.uni-searchbar__text-placeholder {
-		font-size: $uni-font-size-base;
+		font-size: $uni-searchbar-font-size-base;
 		color: $uni-text-color-placeholder;
 		margin-left: 5px;
 	}

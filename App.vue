@@ -26,6 +26,13 @@ export default {
 /*每个页面公共css */ 
     @import './common/uni.css';
 		
+		/* #ifdef H5 */
+		view {
+			display: flex;
+			flex-direction: column;
+		}
+		
+		/* #endif */
 		
 		
 </style>

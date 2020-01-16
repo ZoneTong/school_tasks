@@ -7,19 +7,20 @@
 		* url 跳转链接
 		*  -->
 		<!-- #ifndef MP -->
-		<mix-advert 
-			ref="mixAdvert" 
-			:timedown="1" 
+		<mix-advert
+			ref="mixAdvert"
+			:timedown="1"
 			imageUrl="/static/img/advert.jpg"
 			:url="advertNavUrl"
 		></mix-advert>
 		<!-- #endif -->
-		
-		<uni-search-bar @confirm="search" @input="input" />
-		
+
+		<uni-search-bar class="search-bar" @confirm="search" @input="input" />
+
 		<!-- 顶部选项卡 -->
+		<view class="uni-flex nav-bar-box">
 		<scroll-view id="nav-bar" class="nav-bar" scroll-x scroll-with-animation :scroll-left="scrollLeft">
-			<view 
+			<view
 				v-for="(item,index) in tabBars" :key="item.id"
 				class="nav-item"
 				:class="{current: index === tabCurrentIndex}"
@@ -27,32 +28,37 @@
 				@click="changeTab(index)"
 			>{{item.name}}</view>
 		</scroll-view>
-		
+
+		<view class="uni-flex-item nav-bar-order" @click="adjustNavbar">
+			<faicon type="list"  ></faicon>
+		</view>
+		</view>
+
 		<!-- 下拉刷新组件 -->
-		<mix-pulldown-refresh ref="mixPulldownRefresh" class="panel-content" :top="90" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
+		<mix-pulldown-refresh ref="mixPulldownRefresh" class="panel-content" :top="panelContentTop" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
 			<!-- 内容部分 -->
-			<swiper 
+			<swiper
 				id="swiper"
-				class="swiper-box" 
-				:duration="300" 
-				:current="tabCurrentIndex" 
+				class="swiper-box"
+				:duration="300"
+				:current="tabCurrentIndex"
 				@change="changeTab"
 			>
 				<swiper-item v-for="tabItem in tabBars" :key="tabItem.id">
-					<scroll-view 
-						class="panel-scroll-box" 
-						:scroll-y="enableScroll" 
+					<scroll-view
+						class="panel-scroll-box"
+						:scroll-y="enableScroll"
 						@scrolltolower="loadMore"
 						>
-						<!-- 
-							* 新闻列表 
+						<!--
+							* 新闻列表
 							* 和nvue的区别只是需要把uni标签转为weex标签而已
 							* class 和 style的绑定限制了一些语法，其他并没有不同
 						-->
 						<view v-for="(item, index) in tabItem.newsList" :key="index" class="news-item" @click="navToDetails(item)">
 							<text :class="['title', 'title'+item.type]">{{item.title}}</text>
 							<view v-if="item.images.length > 0" :class="['img-list', 'img-list'+item.type, item.images.length === 1 && item.type===3 ? 'img-list-single': '']">
-								<view 
+								<view
 									v-for="(imgItem, imgIndex) in item.images" :key="imgIndex"
 									:class="['img-wrapper', 'img-wrapper'+item.type, item.images.length === 1 && item.type===3 ? 'img-wrapper-single': '']"
 								>
@@ -66,61 +72,63 @@
 							<view v-else class="img-empty"></view>
 							<view :class="['bot', 'bot'+item.type]">
 								<text class="author">{{item.author}}</text>
+								<text class="time">{{item.type}}条评论</text>
 								<text class="time">{{item.time}}</text>
 							</view>
-							
-							<view class="iconRow">
-								<view class="iconBadge">
-									<faicon type="thumbs-o-up" color="gray" size="20" ></faicon>
-									<text >9999+</text>
-								</view>
-								<view class="iconBadge">
-									<faicon type="comment-o" color="gray" size="20" ></faicon>
-									<text >9999+</text>
-								</view>
-								<view class="iconBadge">
-									<faicon type="share" color="gray" size="20" ></faicon>
-									<text >分享</text>
-								</view>
-							</view>
+
 						</view>
-						
+
 						<!-- 上滑加载更多组件 -->
-						<mix-load-more :status="tabItem.loadMoreStatus"></mix-load-more>
+						<uni-load-more :status="loadingStatus( tabItem.loadMoreStatus )"></uni-load-more>
 					</scroll-view>
 				</swiper-item>
 			</swiper>
 		</mix-pulldown-refresh>
-		
+
+		<uni-popup ref="navbarpopup"  type="top">
+			<view class="uni-share">
+				<text class="uni-share-title">调整导航页</text>
+				<drag-sorts :list="tabBars" :props="{label:'name'}" :boxStyle="{color: 'gray', background: '#eeeeee'}" closable @change="onDragSortChange"></drag-sorts>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
-	import uniBadge from "@/components/uni-badge/uni-badge.vue"
-	import uniIcons from "@/components/uni-icons/uni-icons.vue"
+	// import uniBadge from "@/components/uni-badge/uni-badge.vue"
+	// import uniIcons from "@/components/uni-icons/uni-icons.vue"
+	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
+	import uniPopup from "@/components/uni-popup/uni-popup.vue"
 	import mixAdvert from '@/components/mix-advert/vue/mix-advert';
 	// import dnIcon from '@/components/dn-icon/dn-icon.vue';
 	import json from '@/json'
 	import mixPulldownRefresh from '@/components/mix-pulldown-refresh/mix-pulldown-refresh';
-	import mixLoadMore from '@/components/mix-load-more/mix-load-more';
+	import faicon from "@/components/fa-icon/fa-icon.vue"
+	import dragSorts from "@/components/drag-sorts/index.vue"
+
 	let windowWidth = 0, scrollTimer = false, tabBar;
 	export default {
 		components: {
 			uniSearchBar,
-			uniBadge,
-			uniIcons,
+			// uniBadge,
+			// uniIcons,
+			uniLoadMore,
+			uniPopup,
 			// dnIcon,
 			mixPulldownRefresh,
-			mixLoadMore,
 			mixAdvert,
+			faicon,
+			dragSorts,
 		},
 		data() {
 			return {
 				tabCurrentIndex: 0, //当前选项卡索引
 				scrollLeft: 0, //顶部选项卡左滑距离
+				panelContentTop: 36 + uni.upx2px(32+60), // 搜索条+导航条高度
 				enableScroll: true,
 				tabBars: [],
+
 			}
 		},
 		computed: {
@@ -131,7 +139,7 @@
 					time: '2019-04-26 21:21'
 				}
 				return `/pages/details/details?data=${JSON.stringify(data)}`;
-			} 
+			},
 		},
 		async onLoad() {
 			// 获取屏幕宽度
@@ -141,24 +149,27 @@
 		onReady(){
 			/**
 			 * 启动页广告 使用文档（滑稽）
-			 * 1. 引入组件并注册 
+			 * 1. 引入组件并注册
 			 * 		import mixAdvert from '@/components/mix-advert/vue/mix-advert';
 			 *      components: {mixAdvert},
 					 <!-- #ifndef MP -->
-						<mix-advert 
-							ref="mixAdvert" 
-							:timedown="8" 
+						<mix-advert
+							ref="mixAdvert"
+							:timedown="8"
 							imageUrl="/static/img/advert.jpg"
 							:url="advertNavUrl"
 						></mix-advert>
 					<!-- #endif -->
 			 * 	2. 调用组件的initAdvert()方法进行初始化
-			 * 
+			 *
 			 *  初始化的时机应该是在splash关闭时，否则会造成在app端广告显示了数秒后首屏才渲染出来
 			 */
 			// #ifndef MP
 			this.$refs.mixAdvert.initAdvert();
 			// #endif
+
+			// zht test
+			// this.adjustNavbar()
 		},
 		methods: {
 			/**
@@ -180,7 +191,7 @@
 			//新闻列表
 			loadNewsList(type){
 				let tabItem = this.tabBars[this.tabCurrentIndex];
-				
+
 				//type add 加载更多 refresh下拉刷新
 				if(type === 'add'){
 					if(tabItem.loadMoreStatus === 2){
@@ -193,7 +204,7 @@
 					tabItem.refreshing = true;
 				}
 				// #endif
-				
+
 				//setTimeout模拟异步请求数据
 				setTimeout(()=>{
 					let list = json.newsList;
@@ -217,7 +228,7 @@
 					}
 					//上滑加载 处理状态
 					if(type === 'add'){
-						tabItem.loadMoreStatus = tabItem.newsList.length > 40 ? 2: 0;
+						tabItem.loadMoreStatus = tabItem.newsList.length > 10 ? 2: 0;
 					}
 				}, 600)
 			},
@@ -230,13 +241,13 @@
 					time: item.time,
 					readCount: 30,
 				}
-				let url = item.videoSrc ? 'videoDetails' : 'details'; 
+				let url = item.videoSrc ? 'videoDetails' : 'details';
 
 				uni.navigateTo({
 					url: `/pages/details/${url}?data=${JSON.stringify(data)}`
 				})
 			},
-			
+
 			//下拉刷新
 			onPulldownReresh(){
 				this.loadNewsList('refresh');
@@ -254,7 +265,7 @@
 
 			//tab切换
 			async changeTab(e){
-				
+
 				if(scrollTimer){
 					//多次切换只执行最后一次
 					clearTimeout(scrollTimer);
@@ -270,7 +281,7 @@
 				}
 				//计算宽度相关
 				let tabBarScrollLeft = tabBar.scrollLeft;
-				let width = 0; 
+				let width = 0;
 				let nowWidth = 0;
 				//获取可滑动总宽度
 				for (let i = 0; i <= index; i++) {
@@ -282,7 +293,7 @@
 				}
 				if(typeof e === 'number'){
 					//点击切换时先切换再滚动tabbar，避免同时切换视觉错位
-					this.tabCurrentIndex = index; 
+					this.tabCurrentIndex = index;
 				}
 				//延迟300ms,等待swiper动画结束再修改tabbar
 				scrollTimer = setTimeout(()=>{
@@ -293,11 +304,11 @@
 						this.scrollLeft = 0;
 					}
 					if(typeof e === 'object'){
-						this.tabCurrentIndex = index; 
+						this.tabCurrentIndex = index;
 					}
-					this.tabCurrentIndex = index; 
-					
-					
+					this.tabCurrentIndex = index;
+
+
 					//第一次切换tab，动画结束后需要加载数据
 					let tabItem = this.tabBars[this.tabCurrentIndex];
 					if(this.tabCurrentIndex !== 0 && tabItem.loaded !== true){
@@ -305,10 +316,10 @@
 						tabItem.loaded = true;
 					}
 				}, 300)
-				
+
 			},
 			//获得元素的size
-			getElSize(id) { 
+			getElSize(id) {
 				return new Promise((res, rej) => {
 					let el = uni.createSelectorQuery().select('#' + id);
 					el.fields({
@@ -320,41 +331,73 @@
 					}).exec();
 				});
 			},
-			
-			// 
+
+			//
 			search(e) {
 				return e;
 			},
 			input(e) {
 				return e+'2';
 			},
+
+			loadingStatus(status) {
+				// console.log('loadingStatus', status);
+				switch(status){
+					case 0:
+						return 'more';
+					case 1:
+					return 'loading';
+					case 2:
+					return 'noMore';
+				}
+			},
+			adjustNavbar(){
+				this.$refs.navbarpopup.open();
+				// console.log('open popup', this.$refs,a);
+				// a.open();
+			},
+			onDragSortChange(list){
+				console.log(list)
+			}
 		}
 	}
 </script>
 
 <style lang='scss'>
-	
+
 	page, .content{
 		background-color: #f8f8f8;
 		height: 100%;
 		overflow: hidden;
 	}
 
+	.search-bar{
+	}
+	.uni-flex.nav-bar-box {
+		height: 60upx;
+		font-size: 24upx;
+		flex-direction: row;
+		align-items: center;
+		background-color: white;
+		border-bottom: 1px solid #eeeeee;
+	}
+
 	/* 顶部tabbar */
 	.nav-bar{
 		position: relative;
 		z-index: 10;
-		height: 90upx;
+		height: 100%;
 		white-space: nowrap;
-		box-shadow: 0 2upx 8upx rgba(0,0,0,.06);
+		/* box-shadow: 0 2upx 8upx rgba(0,0,0,.06); */
 		background-color: #fff;
+		width: calc(100% - 50upx);
 		.nav-item{
 			display: inline-block;
-			width: 150upx;
-			height: 90upx;
+			width: 140upx;
+			height: 60upx;
+			line-height: 60upx;
 			text-align: center;
-			line-height: 90upx;
-			font-size: 30upx;
+			/* font-size: 30upx; */
 			color: #303133;
 			position: relative;
 			&:after{
@@ -376,6 +419,13 @@
 			}
 		}
 	}
+	.nav-bar-order {
+		z-index: 11;
+		box-shadow: -2upx 0upx 9upx -2upx rgba(0,0,0,.06);
+		text-align: center;
+		height: 100%;
+		justify-content: center;
+	}
 
 	.swiper-box{
 		height: 100%;
@@ -383,14 +433,14 @@
 
 	.panel-scroll-box{
 		height: 100%;
-		
+
 		.panel-item{
 			background: #fff;
 			padding: 30px 0;
 			border-bottom: 2px solid #000;
 		}
 	}
-	
+
 	/**
 	 * 新闻列表 直接拿的nvue样式修改，,
 	 * 一共需要修改不到10行代码, 另外px需要直接修改为upx，只有单位不一样，计算都是一样的
@@ -403,7 +453,7 @@
 			width: 100%;
 		}
 	}
-	
+
 	view{
 		display:flex;
 		flex-direction: column;
@@ -416,7 +466,7 @@
 		position:relative;
 	}
 	/* 修改结束 */
-	
+
 	/* 新闻列表  emmm 仅供参考 */
 	.news-item{
 		width: 750upx;
@@ -461,7 +511,7 @@
 	.img-empty{
 		height: 20upx;
 	}
-	
+
 	/* 图在左 */
 	.img-list1{
 		position:absolute;
@@ -469,10 +519,10 @@
 		top: 24upx;
 	}
 	.title1{
-		padding-left: 240upx; 
+		padding-left: 240upx;
 	}
 	.bot1{
-		padding-left: 240upx; 
+		padding-left: 240upx;
 		margin-top: 20upx;
 	}
 	/* 图在右 */
@@ -482,7 +532,7 @@
 		top: 24upx;
 	}
 	.title2{
-		padding-right: 210upx; 
+		padding-right: 210upx;
 	}
 	.bot2{
 		margin-top: 20upx;
@@ -505,7 +555,7 @@
 		height: 240upx;
 		margin-right: 0upx;
 	}
-	
+
 	.video-tip{
 		position: absolute;
 		left: 0;
@@ -519,9 +569,9 @@
 	}
 	.video-tip-icon{
 		width: 60upx;
-		height:60upx; 
+		height:60upx;
 	}
-	
+
 	view,
 	scroll-view,
 	swiper,
@@ -548,23 +598,23 @@
 	video {
 		box-sizing: border-box;
 	}
-	
-	
-	.iconRow {
-		/* width: 50%; */
+
+
+	/* 底部分享 */
+	.uni-share {
+		/* #ifndef APP-NVUE */
 		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		margin-top: 10rpx;
+		flex-direction: column;
+		/* #endif */
+		background-color: #fff;
 	}
-	.iconRow .iconBadge{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		align-items: center;
+
+	.uni-share-title {
+		line-height: 30px;
+		font-size: 12px;
+		padding: 7px 0;
+		text-align: center;
 	}
-	.iconRow .iconBadge text {
-			padding-left: 10rpx;
-		}
-	
+
+
 </style>

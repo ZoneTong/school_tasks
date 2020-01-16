@@ -1,8 +1,11 @@
 <template>
+	<!-- <scroll-view> -->
 	<view class="content" :class="{'active':active}">
 		<image class="logo" :class="{'active':active}" src="../../../static/img/logo.png"  mode="aspectFit"></image>
 		<view class="tabbar-box-wrap">
-			<view class="tabbar-box">
+			<view  class="tabbar-box">
+			<scroll-view scroll-y="true" class="scroll-box">
+				<view class="tabbar-box-list" >
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release')">
 					<image class="box-image" src="../../../static/img/tabbar/newsactive.png" mode="aspectFit"></image>
 					<text class="explain">带饭</text>
@@ -39,14 +42,17 @@
 					<image class="box-image" src="../../../static/img/tabbar/add.png" mode="aspectFit"></image>
 					<text class="explain">更多</text>
 				</view>
+				</view>
+			</scroll-view>
 			</view>
 		</view>
-	</view>
-</template>  
+		</view>
+	<!-- </scroll-view> -->
+</template>
 
 <script>
 	import uniIcons from "@/components/uni-icons/uni-icons.vue"
-	
+
 export default {
 	data() {
 		return {
@@ -114,10 +120,20 @@ export default {
 	box-sizing: border-box;
 	bottom: 0;
 	left: 0;
+	.scroll-box{
+		min-height: 100upx;
+		max-height: calc(100vh - var(--window-bottom) - var(--window-top) - 100upx);
+		.tabbar-box-list{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+		}
+	};
 	.tabbar-box {
 		position: relative;
 		display: flex;
 		flex-wrap: wrap;
+		flex-direction: row;
 		width: 100%;
 		background: #fff;
 		border-radius: 20upx;
@@ -152,9 +168,9 @@ export default {
 			z-index: 2;
 		}
 		.tabbar-box-item {
-			// position: relative;
-			// width: 100%;
-			width: 182upx;
+			position: relative;
+			width: 100%;
+			width: 180upx;
 			z-index: 3;
 			margin: 10upx;
 			color: $uni-color-subtitle;

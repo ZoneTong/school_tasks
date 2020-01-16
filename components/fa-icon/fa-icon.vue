@@ -1,6 +1,6 @@
 <template>
 	<view :class="{fa_spin:spin, fa_pulse:pulse, fa_fw:fw, fa_rotate_right:right, fa_rotate_down:down, fa_rotate_left:left}">
-		<view class="fa fa-rotate-90" :class="['fa-' + type]" :style="{color:color, 'font-size': size + 'px;'}"></view>
+		<view class="fa fa-rotate-90" :class="['fa-' + type]" :style="{color:color, 'font-size': size + 'px'}" @click="click"></view>
 	</view>
 </template>
 
@@ -43,6 +43,11 @@
 			left: {
 				type: Boolean,
 				default: false
+			}
+		},
+		methods:{
+			click(){
+				this.$emit('click')
 			}
 		}
 	};
