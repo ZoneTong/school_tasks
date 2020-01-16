@@ -66,10 +66,11 @@
 							<view v-else class="img-empty"></view>
 							<view :class="['bot', 'bot'+item.type]">
 								<text class="author">{{item.author}}</text>
+								<text class="time">{{item.type}}条评论</text>
 								<text class="time">{{item.time}}</text>
 							</view>
 							
-							<view class="iconRow">
+							<!-- <view class="iconRow">
 								<view class="iconBadge">
 									<faicon type="thumbs-o-up" color="gray" size="20" ></faicon>
 									<text >9999+</text>
@@ -82,7 +83,7 @@
 									<faicon type="share" color="gray" size="20" ></faicon>
 									<text >分享</text>
 								</view>
-							</view>
+							</view> -->
 						</view>
 						
 						<!-- 上滑加载更多组件 -->
@@ -562,6 +563,7 @@
 		flex-direction: row;
 		justify-content: space-around;
 		align-items: center;
+		font-size: 20rpx;
 	}
 	.iconRow .iconBadge text {
 			padding-left: 10rpx;
