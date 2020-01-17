@@ -18,6 +18,7 @@
 		<uni-search-bar @confirm="search" @input="input" />
 		
 		<!-- 顶部选项卡 -->
+		<view class="uni-flex nav-bar-box">
 		<scroll-view id="nav-bar" class="nav-bar" scroll-x scroll-with-animation :scroll-left="scrollLeft">
 			<view 
 				v-for="(item,index) in tabBars" :key="item.id"
@@ -27,6 +28,11 @@
 				@click="changeTab(index)"
 			>{{item.name}}</view>
 		</scroll-view>
+		
+		<view class="uni-flex-item nav-bar-order" @click="adjustNavbar">
+			<faicon type="list"  ></faicon> 
+		</view>
+		</view>
 		
 		<!-- 下拉刷新组件 -->
 		<mix-pulldown-refresh ref="mixPulldownRefresh" class="panel-content" :top="185" @refresh="onPulldownReresh" @setEnableScroll="setEnableScroll">
@@ -93,28 +99,43 @@
 			</swiper>
 		</mix-pulldown-refresh>
 		
+		<uni-popup ref="navbarpopup"  type="bottom">
+			<view class="uni-share">
+				<text class="uni-share-title">分享到</text>
+				<view class="">
+				<drag-sorts :list="tabBars" :props="{label:'name'}" :boxStyle="{color: 'gray', background: '#eeeeee'}" closable @change="onDragSortChange"></drag-sorts>
+				</view>
+			</view> 
+		</uni-popup>
 	</view>
 </template>
 
 <script>
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
-	import uniBadge from "@/components/uni-badge/uni-badge.vue"
-	import uniIcons from "@/components/uni-icons/uni-icons.vue"
+	// import uniBadge from "@/components/uni-badge/uni-badge.vue"
+	// import uniIcons from "@/components/uni-icons/uni-icons.vue"
+	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
+	import uniPopup from "@/components/uni-popup/uni-popup.vue"
 	import mixAdvert from '@/components/mix-advert/vue/mix-advert';
 	// import dnIcon from '@/components/dn-icon/dn-icon.vue';
 	import json from '@/json'
 	import mixPulldownRefresh from '@/components/mix-pulldown-refresh/mix-pulldown-refresh';
-	import UniLoadMore from '@/components/uni-load-more/uni-load-more.vue'
+	import faicon from "@/components/fa-icon/fa-icon.vue"
+	import dragSorts from "@/components/drag-sorts/index.vue"
+	
 	let windowWidth = 0, scrollTimer = false, tabBar;
 	export default {
 		components: {
 			uniSearchBar,
-			uniBadge,
-			uniIcons,
+			// uniBadge,
+			// uniIcons,
+			uniLoadMore,
+			uniPopup,
 			// dnIcon,
 			mixPulldownRefresh,
 			mixAdvert,
-			UniLoadMore,
+			faicon,
+			dragSorts,
 		},
 		data() {
 			return {
@@ -160,6 +181,9 @@
 			// #ifndef MP
 			this.$refs.mixAdvert.initAdvert();
 			// #endif
+			
+			// zht test			
+			this.adjustNavbar()
 		},
 		methods: {
 			/**
@@ -341,6 +365,14 @@
 					return 'noMore';
 				}
 			},
+			adjustNavbar(){
+				this.$refs.navbarpopup.open();				
+				// console.log('open popup', this.$refs,a);
+				// a.open();
+			},
+			onDragSortChange(list){
+				console.log(list)
+			}
 		}
 	}
 </script>
@@ -359,11 +391,12 @@
 		z-index: 10;
 		height: 90upx;
 		white-space: nowrap;
-		box-shadow: 0 2upx 8upx rgba(0,0,0,.06);
+		/* box-shadow: 0 2upx 8upx rgba(0,0,0,.06); */
 		background-color: #fff;
+		width: calc(100% - 50rpx);
 		.nav-item{
 			display: inline-block;
-			width: 150upx;
+			width: 140upx;
 			height: 90upx;
 			text-align: center;
 			line-height: 90upx;
@@ -388,6 +421,18 @@
 				width: 50%;
 			}
 		}
+	}
+	.uni-flex.nav-bar-box {
+		align-items: center;
+		background-color: white;
+		border: 1px solid #eeeeee;
+	}
+	.nav-bar-order {
+		z-index: 11;
+		box-shadow: -2upx 0upx 9upx -2upx rgba(0,0,0,.06);
+		text-align: center;
+		height: 90upx;
+		justify-content: center;
 	}
 
 	.swiper-box{
@@ -580,5 +625,22 @@
 	.iconRow .iconBadge text {
 			padding-left: 10rpx;
 		}
+	
+	/* 底部分享 */
+	.uni-share {
+		/* #ifndef APP-NVUE */
+		display: flex;
+		flex-direction: column;
+		/* #endif */
+		background-color: #fff;
+	}
+	
+	.uni-share-title {
+		line-height: 60rpx;
+		font-size: 24rpx;
+		padding: 15rpx 0;
+		text-align: center;
+	}
+	
 	
 </style>

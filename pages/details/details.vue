@@ -142,7 +142,7 @@
 					
 					// this.detailData.flow = json.pageContent;
 					this.loading = false;
-				}, 100)
+				}, 800)
 			},
 			//获取评论列表
 			async loadEvaList(){
