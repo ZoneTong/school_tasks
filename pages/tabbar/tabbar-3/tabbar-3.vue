@@ -1,45 +1,45 @@
 <template>
 	<!-- <scroll-view> -->
 	<view class="content" :class="{'active':active}">
-		<image class="logo" :class="{'active':active}" src="../../../static/img/logo.png"  mode="aspectFit"></image>
+		<image class="logo" :class="{'active':active}" src="/static/img/logo.png"  mode="aspectFit"></image>
 		<view class="tabbar-box-wrap">
 			<view  class="tabbar-box">
 			<scroll-view scroll-y="true" class="scroll-box">
 				<view class="tabbar-box-list" >
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release')">
-					<image class="box-image" src="../../../static/img/tabbar/newsactive.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/tabbar/newsactive.png" mode="aspectFit"></image>
 					<text class="explain">带饭</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-video/tabbar-3-video')">
-					<image class="box-image" src="../../../static/img/tabbar/guanzhuactive.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/tabbar/guanzhuactive.png" mode="aspectFit"></image>
 					<text class="explain">打热水</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/video.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/video.png" mode="aspectFit"></image>
 					<text class="explain">修电脑</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/qa.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/qa.png" mode="aspectFit"></image>
 					<text class="explain">聊天</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/release.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/release.png" mode="aspectFit"></image>
 					<text class="explain">快递</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/tabbar/me.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/tabbar/me.png" mode="aspectFit"></image>
 					<text class="explain">摄影师</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/tabbar/me.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/tabbar/me.png" mode="aspectFit"></image>
 					<text class="explain">路人</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/tabbar/meactive.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/tabbar/meactive.png" mode="aspectFit"></image>
 					<text class="explain">专业演员</text>
 				</view>
 				<view class="tabbar-box-item" @click="goToPage('/pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa')">
-					<image class="box-image" src="../../../static/img/tabbar/add.png" mode="aspectFit"></image>
+					<image class="box-image" src="/static/img/tabbar/add.png" mode="aspectFit"></image>
 					<text class="explain">更多</text>
 				</view>
 				</view>
@@ -121,14 +121,17 @@ export default {
 	bottom: 0;
 	left: 0;
 	.scroll-box{
+		position: relative;
+		z-index: 2;
 		min-height: 100upx;
 		max-height: calc(100vh - var(--window-bottom) - var(--window-top) - 100upx);
-		.tabbar-box-list{
-			display: flex;
-			flex-wrap: wrap;
-			flex-direction: row;
-		}
-	};
+	};	
+	.tabbar-box-list{
+		// position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
 	.tabbar-box {
 		position: relative;
 		display: flex;

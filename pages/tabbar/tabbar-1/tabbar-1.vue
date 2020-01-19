@@ -88,7 +88,7 @@
 		<uni-popup ref="navbarpopup"  type="top">
 			<view class="uni-share">
 				<text class="uni-share-title">调整导航页</text>
-				<drag-sorts :list="tabBars" :props="{label:'name'}" :boxStyle="{color: 'gray', background: '#eeeeee'}" closable @change="onDragSortChange"></drag-sorts>
+				<drag-sorts :list="tabBars" :props="{label:'name', value: 'id'}" :boxStyle="{color: 'gray', background: '#eeeeee'}" closable @change="onDragSortChange"></drag-sorts>
 			</view>
 		</uni-popup>
 	</view>
@@ -352,9 +352,9 @@
 				}
 			},
 			adjustNavbar(){
+				console.log('navbarpopup open');
 				this.$refs.navbarpopup.open();
-				// console.log('open popup', this.$refs,a);
-				// a.open();
+				console.log('navbarpopup end');
 			},
 			onDragSortChange(list){
 				console.log(list)
